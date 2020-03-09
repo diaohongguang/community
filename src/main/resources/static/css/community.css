@@ -1,6 +1,13 @@
-.body{
-    background-image: url('bg.jpg')
+.body1{
+    background: url('/bg.jpg') repeat;
 }
 .main{
     margin:30px;
+}
+.publish{
+    background-color: white;
+}
+.publishButton{
+    float: right;
+    margin-bottom: 15px;
 }

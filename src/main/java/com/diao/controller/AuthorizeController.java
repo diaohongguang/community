@@ -1,7 +1,6 @@
 package com.diao.controller;
 
 import com.diao.Provider.GitProvider;
-import com.diao.mapper.UserMapper;
 import com.diao.pojo.User;
 import com.diao.pojo.dto.AccessTokenDto;
 import com.diao.pojo.dto.GitHubUserDto;
@@ -58,6 +57,11 @@ public class AuthorizeController {
             System.out.println("user->" + gitUser);
             return "redirect:/";
         }
+        return "redirect:/";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
         return "redirect:/";
     }
 }

@@ -10,8 +10,14 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+
     @Override
     public int insertUser(User user) {
         return userMapper.insertUser(user);
+    }
+
+    @Override
+    public User selectUserByToken(String token) {
+        return userMapper.selectUserByToken(token);
     }
 }

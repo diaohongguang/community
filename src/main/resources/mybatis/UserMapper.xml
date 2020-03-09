@@ -12,4 +12,9 @@
         values(#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified})
     </insert>
 
+    <select id="selectUserByToken" parameterType="string" resultType="User">
+            select id ,account_id as accountId, name ,token , gmt_create as gmtCreate,gmt_modified as gmtModified
+            from user
+            where token=#{token}
+    </select>
 </mapper>

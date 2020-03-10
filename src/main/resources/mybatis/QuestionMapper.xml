@@ -7,4 +7,33 @@
         insert into question(title, description, gmt_create, gmt_modified, creator, tag,avatar_url)
         values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag},#{avatarUrl})
     </insert>
+
+    <select id="listQuestions" resultMap="listQuestionsMap">
+        select id, title, description, gmt_create, gmt_modified, creator, comment_count, view_count, like_count, tag, avatar_url
+        from question
+        <if test="keyword!=null">
+            where title like concat('%',#{keyword},'%')
+        </if>
+
+        <if test="currentPage!=null" >
+            <if test="pageSize!=null" >
+                limit #{currentPage},#{pageSize}
+            </if>
+        </if>
+    </select>
+
+    <resultMap id="listQuestionsMap" type="Question">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="creator" column="creator"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="tag" column="tag"/>
+        <result property="avatarUrl" column="avatar_url"/>
+    </resultMap>
 </mapper>

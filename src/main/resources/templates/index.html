@@ -49,24 +49,28 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
             <hr>
-            <div class="media">
+            <div class="media" th:each="entry : ${list}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object avatar" src="https://avatars0.githubusercontent.com/u/61926405?v=4">
+                        <img class="media-object avatar" th:src="${entry.avatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">SpringBoot </h4>
-                    SpringBoot学习简介
+                    <h4 class="media-heading"><a href="#" th:text="${entry.title}"> </a></h4>
+                    <span class="dsctext">
+                        •<span th:text=" ${entry.creator}"></span>发起了问题
+                        •<span th:text=" ${entry.likeCount}"></span>人关注
+                        •<span th:text=" ${entry.commentCount}"></span>个回复
+                        •<span th:text=" ${entry.viewCount}"></span>次浏览
+                        •<span th:text=" ${entry.gmtModified}"></span>小时前
+                    </span>
                 </div>
                 <hr>
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
-            <h3>问题发起指南</h3>
-            <p>~问题标签：请使用精简的语言描述您发布的问题,不超过25个字</p>
-            <p> ~问题补充：详细补充您的问题内容,并且确保问题描述清晰直观,并提供一些相关资料</p>
-            <p>~选择标签：选择一个或多个合适的标签,用逗号分隔开,每个标签不超过10个字</p>
+            <h3>热门话题</h3>
+
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
-package com.diao.pojo;
+package com.diao.pojo.dto;
 
+import com.diao.pojo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question {
+public class QuestionDto {
     private Integer id;
     private String title;
     private String description;
@@ -18,4 +19,5 @@ public class Question {
     private Integer viewCount;
     private Integer likeCount;
     private String tag;
+    private User user;
 }

@@ -4,17 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.diao.mapper.QuestionMapper">
     <insert id="createQuestion" parameterType="Question">
-        insert into question(title, description, gmt_create, gmt_modified, creator, tag,avatar_url)
-        values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag},#{avatarUrl})
+        insert into question(title, description, gmt_create, gmt_modified, creator, tag)
+        values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})
     </insert>
 
-    <select id="listQuestions" resultMap="listQuestionsMap">
-        select id, title, description, gmt_create, gmt_modified, creator, comment_count, view_count, like_count, tag, avatar_url
-        from question
+    <select id="listQuestions" resultMap="listQuestionsDtoMap">
+        select distinct q.id as qid,
+        q.title,
+        q.description,
+        q.gmt_create,
+        q.gmt_modified,
+        q.creator,
+        q.comment_count,
+        q.view_count,
+        q.like_count,
+        q.tag,
+        u.avatar_url,
+        u.name,
+        u.id as uid
+        from question as q inner join user as u on q.creator=u.id
         <if test="keyword!=null">
             where title like concat('%',#{keyword},'%')
         </if>
-
+        group by  qid
         <if test="currentPage!=null" >
             <if test="pageSize!=null" >
                 limit #{currentPage},#{pageSize}
@@ -22,8 +34,8 @@
         </if>
     </select>
 
-    <resultMap id="listQuestionsMap" type="Question">
-        <id property="id" column="id"/>
+    <resultMap id="listQuestionsDtoMap" type="QuestionDto">
+        <id property="id" column="qid"/>
         <result property="title" column="title"/>
         <result property="description" column="description"/>
         <result property="gmtCreate" column="gmt_create"/>
@@ -33,7 +45,17 @@
         <result property="viewCount" column="view_count"/>
         <result property="viewCount" column="view_count"/>
         <result property="likeCount" column="like_count"/>
-        <result property="tag" column="tag"/>
-        <result property="avatarUrl" column="avatar_url"/>
+        <result property="tag" column="q.tag"/>
+        <association property="user" javaType="User">
+            <result property="avatarUrl" column="avatar_url"/>
+            <result property="id" column="uid"/>
+            <result property="name" column="name"/>
+        </association>
+
     </resultMap>
+
+
+    <select id="getQuestionCount" resultType="_int">
+        select count(1) from question
+    </select>
 </mapper>

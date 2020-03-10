@@ -49,24 +49,49 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
             <hr>
-            <div class="media" th:each="entry : ${list}">
+            <div class="media" th:each="entry : ${list.questions}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object avatar" th:src="${entry.avatarUrl}">
+                        <img class="media-object avatar" th:src="${entry.user.avatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a href="#" th:text="${entry.title}"> </a></h4>
                     <span class="dsctext">
-                        •<span th:text=" ${entry.creator}"></span>发起了问题
+                        <span class="label label-default" th:text=" ${entry.user.name}"></span>发起了问题
                         •<span th:text=" ${entry.likeCount}"></span>人关注
                         •<span th:text=" ${entry.commentCount}"></span>个回复
                         •<span th:text=" ${entry.viewCount}"></span>次浏览
-                        •<span th:text=" ${entry.gmtModified}"></span>小时前
+                        •<span th:text=" ${#dates.format(entry.gmtModified,'yyyy-MM-dd HH:mm')}"></span>发布
                     </span>
                 </div>
                 <hr>
             </div>
+            <nav aria-label="Page navigation" style="float: right">
+                <ul class="pagination">
+                    <li th:if="${list.hasHead}">
+                        <a th:href="@{/index?page=}+${1}" aria-label="Next">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${list.hasPre}">
+                        <a th:href="@{/index?page=}+${list.currentPage - 1}" aria-label="Previous">
+                            <span th:aria-hidden="${list.hasPre}">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:class="${list.currentPage ==  pagelist ?'active' : ''}" th:each=" pagelist : ${list.page}"><a th:text="${pagelist}" th:href="@{/index?page=}+${pagelist}"></a></li>
+                    <li th:if="${list.hasNext}">
+                        <a th:href="@{/index?page=}+${list.currentPage + 1}" aria-label="Next">
+                            <span th:aria-hidden="${list.hasNext}">&raquo;</span>
+                        </a>
+                    </li>
+                    <li th:if="${list.hasTail}">
+                        <a th:href="@{/index?page=}+${list.totlePage}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
             <h3>热门话题</h3>

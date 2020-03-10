@@ -1,12 +1,11 @@
 package com.diao.service;
 
 import com.diao.pojo.Question;
-
-import java.util.List;
+import com.diao.pojo.dto.PageDto;
 
 public interface QuestionService {
     void createQuestion(Question question);
-    List<Question> listQuestions(Integer currentPage,
-                                 Integer pageSize,
-                                 String keyword);
+    PageDto listQuestions(Integer currentPage,
+                                Integer pageSize,
+                                String keyword);
 }

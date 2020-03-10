@@ -8,12 +8,18 @@
     </select>
 
     <insert id="insertUser" parameterType="User">
-        insert into user(account_id, name, token, gmt_create, gmt_modified)
-        values(#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified})
+        insert into user(account_id, name, token, gmt_create, gmt_modified,avatar_url)
+        values(#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl})
     </insert>
 
     <select id="selectUserByToken" parameterType="string" resultType="User">
-            select id ,account_id as accountId, name ,token , gmt_create as gmtCreate,gmt_modified as gmtModified
+            select id,
+            account_id,
+            name,
+            token,
+            gmt_create,
+            gmt_modified,
+            avatar_url
             from user
             where token=#{token}
     </select>

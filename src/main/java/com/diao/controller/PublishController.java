@@ -47,7 +47,7 @@ public class PublishController {
         if (user == null){
             return "redirect:/";
         }
-        question.setCreator(user.getId());
+        question.setCreator(Integer.valueOf(user.getAccountId()));
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionService.createQuestion(question);

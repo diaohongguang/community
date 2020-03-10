@@ -16,4 +16,11 @@ public interface QuestionMapper {
                                     @Param("pageSize")Integer pageSize,
                                     @Param("keyword") String keyword);
     int getQuestionCount();
+
+    List<QuestionDto> listQuestionsByUserAccountId(@Param("currentPage") Integer currentPage,
+                                                   @Param("pageSize")Integer pageSize,
+                                                   @Param("keyword") String keyword,
+                                                   @Param("accountId")String accountId);
+
+    int getQuestionCountByUserAccountId(@Param("accountId")String accountId);
 }

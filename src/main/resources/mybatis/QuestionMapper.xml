@@ -22,7 +22,7 @@
         u.avatar_url,
         u.name,
         u.id as uid
-        from question as q inner join user as u on q.creator=u.id
+        from question as q inner join user as u on q.creator=u.account_id
         <if test="keyword!=null">
             where title like concat('%',#{keyword},'%')
         </if>
@@ -53,7 +53,36 @@
         </association>
 
     </resultMap>
+    <select id="listQuestionsByUserAccountId" resultMap="listQuestionsDtoMap">
+        select distinct q.id as qid,
+        q.title,
+        q.description,
+        q.gmt_create,
+        q.gmt_modified,
+        q.creator,
+        q.comment_count,
+        q.view_count,
+        q.like_count,
+        q.tag,
+        u.avatar_url,
+        u.name,
+        u.id as uid
+        from question as q inner join user as u on q.creator=u.account_id
+        where account_id=#{accountId}
+        <if test="keyword!=null">
+             title like concat('%',#{keyword},'%')
+        </if>
+        group by  qid
+        <if test="currentPage!=null" >
+            <if test="pageSize!=null" >
+                limit #{currentPage},#{pageSize}
+            </if>
+        </if>
+    </select>
 
+    <select id="getQuestionCountByUserAccountId" resultType="_int">
+        select count(1) from question where creator = #{accountId}
+    </select>
 
     <select id="getQuestionCount" resultType="_int">
         select count(1) from question

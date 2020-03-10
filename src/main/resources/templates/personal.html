@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>交流社区</title>
+    <title>个人中心</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
@@ -16,7 +16,7 @@
 <div class="container-fluid main" style="margin: 30px">
     <div class="row publish">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <h2><span th:text="${selectName}"></span></h2>
             <hr>
             <div th:if="${list != null}">
                 <div class="media" th:each="entry : ${list.questions}">
@@ -40,26 +40,26 @@
                 <nav aria-label="Page navigation" style="float: right">
                     <ul class="pagination">
                         <li th:if="${list.hasHead}">
-                            <a th:href="@{/index(page=${1})}" aria-label="Next">
+                            <a th:href="@{'/personal/'+${select}(page=${1})}" aria-label="Next">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
                         <li th:if="${list.hasPre}">
-                            <a th:href="@{/index(page=${list.currentPage - 1})}" aria-label="Previous">
+                            <a th:href="@{'/personal/'+${select}(page=${list.currentPage - 1})}" aria-label="Previous">
                                 <span th:aria-hidden="${list.hasPre}">&laquo;</span>
                             </a>
                         </li>
                         <li th:class="${list.currentPage ==  pagelist ?'active' : ''}"
                             th:each=" pagelist : ${list.page}">
-                            <a th:text="${pagelist}" th:href="@{/index(page=${pagelist})}"></a>
+                            <a th:text="${pagelist}" th:href="@{'/personal/'+${select}(page=${pagelist})}"></a>
                         </li>
                         <li th:if="${list.hasNext}">
-                            <a th:href="@{/index(page=${list.currentPage + 1})}" aria-label="Next">
+                            <a th:href="@{'/personal/'+${select}(page=${list.currentPage + 1})}" aria-label="Next">
                                 <span th:aria-hidden="${list.hasNext}">&raquo;</span>
                             </a>
                         </li>
                         <li th:if="${list.hasTail}">
-                            <a th:href="@{/index(page=${list.totlePage})}" aria-label="Next">
+                            <a th:href="@{'/personal/'+${select}(page=${list.totlePage})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
@@ -68,7 +68,18 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>热门话题</h3>
+            <div class="list-group questionR" style="margin-top: 20px">
+                <a th:href="@{/personal/question}"
+                   th:class="${select == 'question'}? 'list-group-item active' : 'list-group-item'">
+                    <span th:text="${'我的问题'}"></span>
+                    <span class="badge">14</span>
+                </a>
+                <a th:href="@{/personal/replies}"
+                   th:class="${select == 'replies'}? 'list-group-item active' : 'list-group-item'">
+                    <span th:text="${'最新回复'}"></span>
+                    <span class="badge">14</span>
+                </a>
+            </div>
 
         </div>
     </div>

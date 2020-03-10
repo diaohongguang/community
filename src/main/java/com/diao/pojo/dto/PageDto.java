@@ -12,6 +12,7 @@ import java.util.List;
 
 @Data
 public class PageDto {
+    private Integer count;
     private Integer currentPage;
     private Integer totlePage;
     private Boolean hasNext;
@@ -21,7 +22,9 @@ public class PageDto {
     private List<QuestionDto> questions;
     private List<Integer> page = new ArrayList<>();
 
-    public void computerPage(){
+    public void computerPage(Integer currentPage,Integer pageSize,Integer count){
+        this.count=count;
+        this.currentPage=currentPage;
         page.add(currentPage);
         //计算出显示的页码
         for (int i = 1; i <= 3; i++) {

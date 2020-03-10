@@ -48,6 +48,7 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setName(gitUser.getName());
+            user.setAvatarUrl(gitUser.getAvatarUrl());
             user.setAccountId(String.valueOf(gitUser.getId()));
             //令牌是uuid
             user.setToken(UUID.randomUUID().toString());

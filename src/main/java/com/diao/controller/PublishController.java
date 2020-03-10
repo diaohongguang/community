@@ -45,13 +45,12 @@ public class PublishController {
 
         User user = (User)request.getSession().getAttribute("user");
         if (user == null){
-            return "redirect:/publish";
+            return "redirect:/";
         }
-
         question.setCreator(Integer.valueOf(user.getAccountId()));
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionService.createQuestion(question);
-        return "redirect:/publish";
+        return "redirect:/";
     }
 }

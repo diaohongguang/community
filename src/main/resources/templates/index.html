@@ -6,11 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/community.css}"/>
     <script th:src="@{/js/bootstrap.min.js}" type="application/javascript"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script th:src="@{/js/bootstrap.js}" type="application/javascript"></script>
 </head>
-<body>
+<body class="body1">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -18,7 +19,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">交流社区</span>
             </button>
-            <a class="navbar-brand" href="#">交流社区</a>
+            <a class="navbar-brand" th:href="@{/index}">交流社区</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
@@ -42,5 +43,32 @@
         </div>
     </div>
 </nav>
+
+<div class="container-fluid main"  style="margin: 30px">
+    <div class="row publish">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <hr>
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object avatar" src="https://avatars0.githubusercontent.com/u/61926405?v=4">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">SpringBoot </h4>
+                    SpringBoot学习简介
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+            <h3>问题发起指南</h3>
+            <p>~问题标签：请使用精简的语言描述您发布的问题,不超过25个字</p>
+            <p> ~问题补充：详细补充您的问题内容,并且确保问题描述清晰直观,并提供一些相关资料</p>
+            <p>~选择标签：选择一个或多个合适的标签,用逗号分隔开,每个标签不超过10个字</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

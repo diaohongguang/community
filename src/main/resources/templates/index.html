@@ -37,7 +37,7 @@
                     </div>
                     <hr>
                 </div>
-                <nav aria-label="Page navigation" style="float: right">
+                <nav th:if="${list.count != 0}" aria-label="Page navigation" style="float: right">
                     <ul class="pagination">
                         <li th:if="${list.hasHead}">
                             <a th:href="@{/index(page=${1})}" aria-label="Next">

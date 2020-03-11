@@ -2,7 +2,6 @@ package com.diao.service.serviceimpl;
 
 import com.diao.mapper.QuestionMapper;
 import com.diao.pojo.dto.PageDto;
-import com.diao.pojo.dto.QuestionDto;
 import com.diao.service.PersonalService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,18 +12,23 @@ import java.util.List;
 @Repository
 public interface QuestionMapper {
     void createQuestion(Question question);
+
     List<QuestionDto> listQuestions(@Param("currentPage") Integer currentPage,
-                                    @Param("pageSize")Integer pageSize,
+                                    @Param("pageSize") Integer pageSize,
                                     @Param("keyword") String keyword);
+
     int getQuestionCount();
 
     List<QuestionDto> listQuestionsByUserAccountId(@Param("currentPage") Integer currentPage,
-                                                   @Param("pageSize")Integer pageSize,
+                                                   @Param("pageSize") Integer pageSize,
                                                    @Param("keyword") String keyword,
-                                                   @Param("accountId")String accountId);
+                                                   @Param("accountId") String accountId);
 
-    int getQuestionCountByUserAccountId(@Param("accountId")String accountId);
+    int getQuestionCountByUserAccountId(@Param("accountId") String accountId);
 
 
-    QuestionDto selectQuestion(@Param("id")Integer id);
+    QuestionDto selectQuestion(@Param("id") Integer id);
+
+
+    void updateQuestion(Question question);
 }

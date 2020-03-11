@@ -17,7 +17,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void createQuestion(Question question) {
-        questionMapper.createQuestion(question);
+        if (question.getId()==null){
+            questionMapper.createQuestion(question);
+        }else {
+            questionMapper.updateQuestion(question);
+        }
+
     }
     @Override
     public PageDto listQuestions(Integer currentPage, Integer pageSize, String keyword){

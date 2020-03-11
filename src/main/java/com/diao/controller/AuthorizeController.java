@@ -62,9 +62,18 @@ public class AuthorizeController {
         }
         return "redirect:/";
     }
+
+
+
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().invalidate();
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie token = new Cookie("token", null);
+        Cookie JSESSIONID = new Cookie("JSESSIONID", null);
+        token.setMaxAge(0);
+        JSESSIONID.setMaxAge(0);
+        response.addCookie(token);
+        response.addCookie(JSESSIONID);
         return "redirect:/";
     }
 }

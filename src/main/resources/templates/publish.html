@@ -40,7 +40,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/personal/question}">我的问题</a></li>
-                        <li><a href="#">退出登录</a></li>
+                        <li><a th:href="@{/logout}">退出登录</a></li>
                     </ul>
                 </li>
             </ul>
@@ -53,6 +53,7 @@
             <h2><span class="glyphicon glyphicon-search" aria-hidden="true"></span>发起</h2>
             <hr>
             <form th:action="@{/publish}" method="post">
+                <input type="text" th:value="${id}" name="id" style="display: none">
                 <div class="form-group">
                     <label for="title">问题标题(简单扼要):</label>
                     <input type="text" th:value="${title}" class="form-control" name="title" id="title" placeholder="问题标签......">

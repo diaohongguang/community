@@ -45,7 +45,7 @@
         <result property="viewCount" column="view_count"/>
         <result property="viewCount" column="view_count"/>
         <result property="likeCount" column="like_count"/>
-        <result property="tag" column="q.tag"/>
+        <result property="tag" column="tag"/>
         <association property="user" javaType="User">
             <result property="avatarUrl" column="avatar_url"/>
             <result property="id" column="uid"/>
@@ -108,4 +108,9 @@
     <select id="getQuestionCount" resultType="_int">
         select count(1) from question
     </select>
+
+    <update id="updateQuestion" parameterType="Question">
+        update question set title =#{title} , tag =#{tag} , description =#{description},gmt_modified =#{gmtModified} where id=#{id}
+    </update>
+
 </mapper>

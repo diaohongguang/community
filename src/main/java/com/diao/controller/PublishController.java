@@ -2,11 +2,13 @@ package com.diao.controller;
 
 import com.diao.pojo.Question;
 import com.diao.pojo.User;
+import com.diao.pojo.dto.QuestionDto;
 import com.diao.service.serviceimpl.QuestionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,4 +55,24 @@ public class PublishController {
         questionService.createQuestion(question);
         return "redirect:/";
     }
+
+    @GetMapping("/edit/{id}")
+    public String updateQuestion(@PathVariable("id")Integer id,
+                                 Model model){
+        QuestionDto question = questionService.selectQuestion(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "/publish";
+    }
+
+
+
+
+
+
+
+
+
 }

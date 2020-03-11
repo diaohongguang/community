@@ -23,4 +23,7 @@ public interface QuestionMapper {
                                                    @Param("accountId")String accountId);
 
     int getQuestionCountByUserAccountId(@Param("accountId")String accountId);
+
+
+    QuestionDto selectQuestion(@Param("id")Integer id);
 }

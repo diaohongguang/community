@@ -14,7 +14,6 @@ class CommunityApplicationTests {
     QuestionService questionService;
     @Test
     void contextLoads() {
-        System.out.println(questionService.listQuestions(0,10,null));
     }
 
 }

@@ -28,17 +28,6 @@ public class PersonalController {
                              @RequestParam(name = "page", defaultValue = "1") Integer page,
                              @RequestParam(name = "size", defaultValue = "5") Integer size,
                              @RequestParam(name = "keyword", defaultValue = "null") String keyword) {
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                if ("token".equals(cookie.getName())) {
-                    User user = userService.selectUserByToken(cookie.getValue());
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
             if ("question".equals(active)) {

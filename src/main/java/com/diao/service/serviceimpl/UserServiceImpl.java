@@ -9,11 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public int insertUser(User user) {
-        return userMapper.insertUser(user);
+        user.setGmtCreate(System.currentTimeMillis());
+        if (user!=null){
+            if ( userMapper.hasUser(user.getAccountId())==1){
+                return userMapper.updateUserByAccountId(user);
+            }
+            return userMapper.insertUser(user);
+        }
+        return 0;
     }
 
     @Override

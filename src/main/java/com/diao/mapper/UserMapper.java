@@ -13,4 +13,9 @@ public interface UserMapper {
     int insertUser(User user);
 
     User selectUserByToken(@Param("token") String token);
+
+    int hasUser(@Param("accountId")String accountId);
+
+    int updateUserByAccountId(User user);
+
 }

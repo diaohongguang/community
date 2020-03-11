@@ -20,8 +20,7 @@ public class IndexController {
     QuestionService questionService;
 
     @GetMapping({"/", "index"})
-    public String index(HttpServletRequest request,
-                        Model model,
+    public String index(Model model,
                         @RequestParam(name = "page",defaultValue = "1")Integer page,
                         @RequestParam(name = "size",defaultValue = "5")Integer size,
                         @RequestParam(name = "keyword",defaultValue = "null")String keyword) {
@@ -29,17 +28,6 @@ public class IndexController {
             keyword=null;
         }
         model.addAttribute("list",questionService.listQuestions(page,size,keyword));
-        if (request.getCookies()!=null){
-            for (Cookie cookie : request.getCookies()) {
-                if ("token".equals(cookie.getName())) {
-                    User user = userService.selectUserByToken(cookie.getValue());
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
         return "index";
     }
 }

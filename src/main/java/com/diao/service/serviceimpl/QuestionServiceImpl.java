@@ -3,6 +3,7 @@ package com.diao.service.serviceimpl;
 import com.diao.mapper.QuestionMapper;
 import com.diao.pojo.Question;
 import com.diao.pojo.dto.PageDto;
+import com.diao.pojo.dto.QuestionDto;
 import com.diao.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,10 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return null;
 
+    }
+
+    @Override
+    public QuestionDto selectQuestion(Integer id) {
+        return questionMapper.selectQuestion(id);
     }
 }

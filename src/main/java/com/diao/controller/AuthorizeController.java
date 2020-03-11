@@ -53,7 +53,9 @@ public class AuthorizeController {
             //令牌是uuid
             user.setToken(UUID.randomUUID().toString());
             response.addCookie(new Cookie("token", user.getToken()));
-            userService.insertUser(user);
+           if (userService.insertUser(user)==0){
+               return "redirect:/";
+           }
             request.getSession().setAttribute("user", gitUser);
             System.out.println("user->" + gitUser);
             return "redirect:/";

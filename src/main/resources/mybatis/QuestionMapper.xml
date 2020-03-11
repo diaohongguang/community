@@ -80,6 +80,27 @@
         </if>
     </select>
 
+
+
+    <select id="selectQuestion" resultMap="listQuestionsDtoMap">
+        select distinct q.id as qid,
+        q.title,
+        q.description,
+        q.gmt_create,
+        q.gmt_modified,
+        q.creator,
+        q.comment_count,
+        q.view_count,
+        q.like_count,
+        q.tag,
+        u.avatar_url,
+        u.name,
+        u.id as uid
+        from question as q inner join user as u on q.creator=u.account_id
+        where q.id=#{id}
+        group by q.id
+    </select>
+
     <select id="getQuestionCountByUserAccountId" resultType="_int">
         select count(1) from question where creator = #{accountId}
     </select>

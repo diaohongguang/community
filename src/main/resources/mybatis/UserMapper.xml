@@ -23,4 +23,12 @@
             from user
             where token=#{token}
     </select>
+
+    <select id="hasUser" resultType="_int">
+        select count(1) from user where account_id=#{accountId}
+    </select>
+
+    <update id="updateUserByAccountId">
+        update user set token=#{token},avatar_url = #{avatarUrl},name=#{name},gmt_modified=#{gmtModified} where account_id=#{accountId}
+    </update>
 </mapper>

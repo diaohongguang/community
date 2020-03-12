@@ -53,9 +53,9 @@ public class AuthorizeController {
             //令牌是uuid
             user.setToken(UUID.randomUUID().toString());
             response.addCookie(new Cookie("token", user.getToken()));
-           if (userService.insertUser(user)==0){
-               return "redirect:/";
-           }
+            if (userService.insertUser(user) == 0) {
+                return "redirect:/";
+            }
             request.getSession().setAttribute("user", gitUser);
             System.out.println("user->" + gitUser);
             return "redirect:/";
@@ -64,9 +64,8 @@ public class AuthorizeController {
     }
 
 
-
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request,HttpServletResponse response){
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("user");
         Cookie token = new Cookie("token", null);
         Cookie JSESSIONID = new Cookie("JSESSIONID", null);

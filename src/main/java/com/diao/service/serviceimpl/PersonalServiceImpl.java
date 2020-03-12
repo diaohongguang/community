@@ -27,13 +27,13 @@ public class PersonalServiceImpl implements PersonalService {
         }
         pageDto.setTotlePage(totlePage);
         if (currentPage < 1 || currentPage > totlePage) {
-            pageDto.setQuestions(questionMapper.listQuestionsByUserAccountId(0, pageSize, keyword, accountId));
+            pageDto.setQuestions(questionMapper.listQuestions(0, pageSize, keyword, accountId));
             pageDto.computerPage(1, pageSize, count);
             return pageDto;
         }
         pageDto.computerPage(currentPage, pageSize, count);
         currentPage = (currentPage - 1) * pageSize;
-        pageDto.setQuestions(questionMapper.listQuestionsByUserAccountId(currentPage, pageSize, keyword, accountId));
+        pageDto.setQuestions(questionMapper.listQuestions(currentPage, pageSize, keyword, accountId));
         return pageDto;
     }
 }

@@ -15,20 +15,16 @@ public interface QuestionMapper {
 
     List<QuestionDto> listQuestions(@Param("currentPage") Integer currentPage,
                                     @Param("pageSize") Integer pageSize,
-                                    @Param("keyword") String keyword);
+                                    @Param("keyword") String keyword,
+                                    @Param("accountId") String accountId);
 
     int getQuestionCount();
 
-    List<QuestionDto> listQuestionsByUserAccountId(@Param("currentPage") Integer currentPage,
-                                                   @Param("pageSize") Integer pageSize,
-                                                   @Param("keyword") String keyword,
-                                                   @Param("accountId") String accountId);
-
     int getQuestionCountByUserAccountId(@Param("accountId") String accountId);
-
 
     QuestionDto selectQuestion(@Param("id") Integer id);
 
-
     void updateQuestion(Question question);
+
+    void updateQuestionViewCountById(@Param("id") Integer id);
 }

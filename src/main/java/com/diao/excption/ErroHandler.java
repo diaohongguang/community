@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
-public class ErroHandler  implements ErrorController {
+public class ErroHandler implements ErrorController {
     @Override
     public String getErrorPath() {
         return "error";

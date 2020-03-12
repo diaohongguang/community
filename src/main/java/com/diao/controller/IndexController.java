@@ -21,13 +21,13 @@ public class IndexController {
 
     @GetMapping({"/", "index"})
     public String index(Model model,
-                        @RequestParam(name = "page",defaultValue = "1")Integer page,
-                        @RequestParam(name = "size",defaultValue = "5")Integer size,
-                        @RequestParam(name = "keyword",defaultValue = "null")String keyword) {
-        if ("null".equals(keyword)){
-            keyword=null;
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "keyword", defaultValue = "null") String keyword) {
+        if ("null".equals(keyword)) {
+            keyword = null;
         }
-        model.addAttribute("list",questionService.listQuestions(page,size,keyword));
+        model.addAttribute("list", questionService.listQuestions(page, size, keyword));
         return "index";
     }
 }

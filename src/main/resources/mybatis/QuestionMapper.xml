@@ -23,9 +23,15 @@
         u.name,
         u.id as uid
         from question as q inner join user as u on q.creator=u.account_id
-        <if test="keyword!=null">
-            where title like concat('%',#{keyword},'%')
-        </if>
+        <where>
+            <if test="keyword!=null">
+                and title like concat('%',#{keyword},'%')
+            </if>
+            <if test="accountId != null">
+                and  account_id=#{accountId}
+            </if>
+        </where>
+
         group by  qid
         <if test="currentPage!=null" >
             <if test="pageSize!=null" >
@@ -53,33 +59,6 @@
         </association>
 
     </resultMap>
-    <select id="listQuestionsByUserAccountId" resultMap="listQuestionsDtoMap">
-        select distinct q.id as qid,
-        q.title,
-        q.description,
-        q.gmt_create,
-        q.gmt_modified,
-        q.creator,
-        q.comment_count,
-        q.view_count,
-        q.like_count,
-        q.tag,
-        u.avatar_url,
-        u.name,
-        u.id as uid
-        from question as q inner join user as u on q.creator=u.account_id
-        where account_id=#{accountId}
-        <if test="keyword!=null">
-             title like concat('%',#{keyword},'%')
-        </if>
-        group by  qid
-        <if test="currentPage!=null" >
-            <if test="pageSize!=null" >
-                limit #{currentPage},#{pageSize}
-            </if>
-        </if>
-    </select>
-
 
 
     <select id="selectQuestion" resultMap="listQuestionsDtoMap">
@@ -113,4 +92,8 @@
         update question set title =#{title} , tag =#{tag} , description =#{description},gmt_modified =#{gmtModified} where id=#{id}
     </update>
 
+
+    <update id="updateQuestionViewCountById">
+        update question set view_count = view_count + 1 where id=#{id}
+    </update>
 </mapper>

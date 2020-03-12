@@ -39,13 +39,13 @@ public class QuestionServiceImpl implements QuestionService {
         }
         pageDto.setTotlePage(totlePage);
         if (currentPage < 1 || currentPage > totlePage) {
-            pageDto.setQuestions(questionMapper.listQuestions(0, pageSize, keyword));
+            pageDto.setQuestions(questionMapper.listQuestions(0, pageSize, keyword,null));
             pageDto.computerPage(1, pageSize, count);
             return pageDto;
         }
         pageDto.computerPage(currentPage, pageSize, count);
         currentPage = (currentPage - 1) * pageSize;
-        pageDto.setQuestions(questionMapper.listQuestions(currentPage, pageSize, keyword));
+        pageDto.setQuestions(questionMapper.listQuestions(currentPage, pageSize, keyword,null));
         return pageDto;
     }
 
@@ -55,6 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (questionDto == null){
             throw new RuntimeException(MyException.PAGE_NOT_FOUND.getMessage());
         }
+        questionMapper.updateQuestionViewCountById(id);
         return questionDto;
     }
 }

@@ -9,6 +9,5 @@ public interface QuestionService {
     PageDto listQuestions(Integer currentPage,
                                 Integer pageSize,
                                 String keyword);
-
     QuestionDto selectQuestion(Integer id);
 }

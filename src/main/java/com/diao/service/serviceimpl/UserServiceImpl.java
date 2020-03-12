@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     public int insertUser(User user) {
         user.setGmtCreate(System.currentTimeMillis());
         if (user!=null){
-            if ( userMapper.hasUser(user.getAccountId())==1){
+            if (userMapper.hasUser(user.getAccountId())==1){
                 return userMapper.updateUserByAccountId(user);
             }
             return userMapper.insertUser(user);

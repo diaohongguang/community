@@ -17,36 +17,37 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
     @Autowired
     QuestionServiceImpl questionService;
+
     @GetMapping("/publish")
-    public String goPublish( HttpServletRequest request){
-        if (request.getSession().getAttribute("user")!=null){
+    public String goPublish(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") != null) {
             return "publish";
-        }
-        else{
+        } else {
             return "redirect:/";
         }
     }
+
     @PostMapping("/publish")
-    public String addQuestion(Question question, HttpServletRequest request, Model model){
-        model.addAttribute("title",question.getTitle());
-        model.addAttribute("description",question.getDescription());
-        model.addAttribute("tag",question.getTag());
+    public String addQuestion(Question question, HttpServletRequest request, Model model) {
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag", question.getTag());
         //对前端数据进行校验
-        if (question.getTitle()==null || "".equals(question.getTitle())){
-            model.addAttribute("error","~标题不能为空");
+        if (question.getTitle() == null || "".equals(question.getTitle())) {
+            model.addAttribute("error", "~标题不能为空");
             return "publish";
         }
-        if (question.getDescription()==null || "".equals(question.getDescription())){
-            model.addAttribute("error","~问题补充不能为空");
+        if (question.getDescription() == null || "".equals(question.getDescription())) {
+            model.addAttribute("error", "~问题补充不能为空");
             return "publish";
         }
-        if (question.getTag()==null || "".equals(question.getTag())){
-            model.addAttribute("error","~标签不能为空");
+        if (question.getTag() == null || "".equals(question.getTag())) {
+            model.addAttribute("error", "~标签不能为空");
             return "publish";
         }
 
-        User user = (User)request.getSession().getAttribute("user");
-        if (user == null){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
             return "redirect:/";
         }
         question.setCreator(user.getAccountId());
@@ -57,22 +58,13 @@ public class PublishController {
     }
 
     @GetMapping("/edit/{id}")
-    public String updateQuestion(@PathVariable("id")Integer id,
-                                 Model model){
+    public String updateQuestion(@PathVariable("id") Integer id,
+                                 Model model) {
         QuestionDto question = questionService.selectQuestion(id);
-        model.addAttribute("title",question.getTitle());
-        model.addAttribute("description",question.getDescription());
-        model.addAttribute("tag",question.getTag());
-        model.addAttribute("id",question.getId());
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag", question.getTag());
+        model.addAttribute("id", question.getId());
         return "/publish";
     }
-
-
-
-
-
-
-
-
-
 }

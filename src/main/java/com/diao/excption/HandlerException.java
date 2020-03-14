@@ -34,6 +34,7 @@ public class HandlerException {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            return null;
         }else {
             if (e instanceof DiyException){
                 modelAndView.addObject("code",((DiyException) e).getCode());
@@ -42,9 +43,7 @@ public class HandlerException {
                 modelAndView.addObject("message",MyException.SYS_ERROR.getCode());
                 modelAndView.addObject("message",MyException.SYS_ERROR.getMessage());
             }
+            return modelAndView;
         }
-        return modelAndView;
-
-
     }
 }

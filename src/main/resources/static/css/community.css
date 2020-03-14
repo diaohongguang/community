@@ -23,3 +23,32 @@
 .questionR{
     margin-top: 20px;
 }
+.text-margin{
+    margin: 10px 0;
+}
+.media-body-margin{
+    margin-top: 10px;
+}
+.comment-size{
+    color: #999;
+    font-size: 12px;
+}
+.comment-style:hover{
+    cursor: pointer;
+    color: #499ef3;
+}
+.active{
+    color: #499ef3;
+}
+.comment-border{
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.two-comment{
+    margin-top: 10px;
+    padding-left: 14px;
+}
+.time-location{
+    margin-right: 15px;
+}

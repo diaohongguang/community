@@ -1,5 +1,7 @@
-package com.diao.pojo;
+package com.diao.pojo.dto;
 
+import com.diao.pojo.Comment;
+import com.diao.pojo.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class CommentDto {
     private Integer id;
     private Integer parentId;
     private Integer type;
@@ -15,6 +17,7 @@ public class Comment {
     private Integer likeCount;
     private Long gmtCreate;
     private Long gmtModified;
-    private String content;
     private Integer replies;
+    private String content;
+    private User user;
 }

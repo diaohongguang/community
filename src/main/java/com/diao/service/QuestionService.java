@@ -10,4 +10,5 @@ public interface QuestionService {
                                 Integer pageSize,
                                 String keyword);
     QuestionDto selectQuestion(Integer id);
+    void updateQuestionCommentCountById(Integer id);
 }

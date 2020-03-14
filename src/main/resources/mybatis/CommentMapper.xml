@@ -7,4 +7,48 @@
         insert into comment(parent_id, type, commentator, gmt_create, gmt_modified, content)
         values (#{parentId},#{type},#{commentator},#{gmtCreate},#{gmtModified},#{content})
     </insert>
+
+    <select id="selectComment" resultType="Comment">
+        select *
+        from comment
+        where id=#{parentId}
+    </select>
+
+    <select id="listComments" resultMap="listCommentsMap">
+        select c.id as cid,
+        parent_id,
+        type,
+        commentator,
+        c.like_count,
+        c.gmt_create,
+        c.gmt_modified,
+        content,
+        replies,
+        u.id as uid,
+        u.name,
+        u.avatar_url
+        from comment as c inner join  user as u on  c.commentator = u.account_id
+        where c.parent_id = #{id} and c.type=#{type}
+    </select>
+
+    <resultMap id="listCommentsMap" type="com.diao.pojo.dto.CommentDto">
+            <id column="cid" property="id"/>
+            <result column="parent_id" property="parentId"/>
+            <result column="type" property="type"/>
+            <result column="commentator" property="commentator"/>
+            <result column="like_count" property="likeCount"/>
+            <result column="gmt_create" property="gmtCreate"/>
+            <result column="gmt_modified" property="gmtModified"/>
+            <result column="content" property="content"/>
+            <result column="replies" property="replies"/>
+        <association property="user" javaType="User">
+            <result column="uid" property="id"/>
+            <result column="name" property="name"/>
+            <result column="avatar_url" property="avatarUrl"/>
+        </association>
+    </resultMap>
+
+    <update id="updataReplisCount">
+        update comment set replies = replies + 1 where id =#{id}
+    </update>
 </mapper>

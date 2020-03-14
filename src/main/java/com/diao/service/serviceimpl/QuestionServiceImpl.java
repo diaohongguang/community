@@ -58,4 +58,9 @@ public class QuestionServiceImpl implements QuestionService {
         questionMapper.updateQuestionViewCountById(id);
         return questionDto;
     }
+
+    @Override
+    public void updateQuestionCommentCountById(Integer id) {
+        questionMapper.updateQuestionCommentCountById(id);
+    }
 }

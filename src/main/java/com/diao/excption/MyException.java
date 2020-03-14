@@ -6,6 +6,9 @@ public enum MyException {
     COMMENT_NOT_QUESTION(4001, "~评论的问题走丢了！！！"),
     NO_LOGIN(4002, "~请登录，否则无法正常使用！！！"),
     OK_MESSAGE(2000,"~操作成功！！！"),
+    NOT_COTENT(4004,"~评论不能为空呀！！！"),
+    TYPE_ERROR(4003,"~评论类型错误！！！"),
+    REPLY_ERROR(4004,"~回复的评论不存在！！！"),
     SYS_ERROR(9999,"~服务器自燃了，请稍在试试~~");
     private String message;
     private Integer code;

@@ -27,4 +27,6 @@ public interface QuestionMapper {
     void updateQuestion(Question question);
 
     void updateQuestionViewCountById(@Param("id") Integer id);
+
+    void updateQuestionCommentCountById(@Param("id") Integer id);
 }

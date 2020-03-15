@@ -32,12 +32,13 @@
             </if>
         </where>
 
-        group by  qid
+        order by  q.gmt_create desc
         <if test="currentPage!=null" >
             <if test="pageSize!=null" >
                 limit #{currentPage},#{pageSize}
             </if>
         </if>
+
     </select>
 
     <resultMap id="listQuestionsDtoMap" type="QuestionDto">
@@ -100,4 +101,11 @@
     <update id="updateQuestionCommentCountById">
         update question set comment_count = comment_count + 1 where id=#{id}
     </update>
+
+
+    <select id="listRelatedQuestions" resultType="com.diao.pojo.dto.RelatedQuestionsDto">
+        select id,title ,description from question
+        where tag REGEXP #{tags} and id != #{id};
+    </select>
+
 </mapper>

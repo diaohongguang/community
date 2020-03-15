@@ -29,6 +29,7 @@
         u.avatar_url
         from comment as c inner join  user as u on  c.commentator = u.account_id
         where c.parent_id = #{id} and c.type=#{type}
+        order by  c.gmt_create desc
     </select>
 
     <resultMap id="listCommentsMap" type="com.diao.pojo.dto.CommentDto">

@@ -2,6 +2,7 @@ package com.diao.mapper;
 
 import com.diao.pojo.Question;
 import com.diao.pojo.dto.QuestionDto;
+import com.diao.pojo.dto.RelatedQuestionsDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -29,4 +30,6 @@ public interface QuestionMapper {
     void updateQuestionViewCountById(@Param("id") Integer id);
 
     void updateQuestionCommentCountById(@Param("id") Integer id);
+
+    List<RelatedQuestionsDto> listRelatedQuestions(@Param("tags")String tags,@Param("id")Integer id);
 }

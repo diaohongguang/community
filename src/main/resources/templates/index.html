@@ -39,7 +39,7 @@
                         •<span th:text=" ${entry.likeCount}"></span>人关注
                         •<span th:text=" ${entry.commentCount}"></span>个回复
                         •<span th:text=" ${entry.viewCount}"></span>次浏览
-                        •<span th:text=" ${#dates.format(entry.gmtModified,'yyyy-MM-dd HH:mm')}"></span>发布
+                        •<span th:text=" ${#dates.format(entry.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>发布
                     </span>
                     </div>
                     <hr>

@@ -3,6 +3,9 @@ package com.diao.service;
 import com.diao.pojo.Question;
 import com.diao.pojo.dto.PageDto;
 import com.diao.pojo.dto.QuestionDto;
+import com.diao.pojo.dto.RelatedQuestionsDto;
+
+import java.util.List;
 
 public interface QuestionService {
     void createQuestion(Question question);
@@ -11,4 +14,5 @@ public interface QuestionService {
                                 String keyword);
     QuestionDto selectQuestion(Integer id);
     void updateQuestionCommentCountById(Integer id);
+    List<RelatedQuestionsDto> listRelatedQuestions(String tages,Integer id);
 }

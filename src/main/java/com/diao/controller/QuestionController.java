@@ -27,6 +27,7 @@ public class QuestionController {
 
         model.addAttribute("question",questionDto);
         model.addAttribute("comments",commentService.listComments(questionDto.getId(), TypeEnum.COMMENT.getType()));
+        model.addAttribute("relatedQuestions",questionService.listRelatedQuestions(questionDto.getTag(),questionDto.getId()));
         return "question";
     }
 }

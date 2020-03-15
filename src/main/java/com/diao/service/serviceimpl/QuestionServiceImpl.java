@@ -5,9 +5,12 @@ import com.diao.mapper.QuestionMapper;
 import com.diao.pojo.Question;
 import com.diao.pojo.dto.PageDto;
 import com.diao.pojo.dto.QuestionDto;
+import com.diao.pojo.dto.RelatedQuestionsDto;
 import com.diao.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -62,5 +65,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void updateQuestionCommentCountById(Integer id) {
         questionMapper.updateQuestionCommentCountById(id);
+    }
+    @Override
+    public List<RelatedQuestionsDto> listRelatedQuestions(String tages,Integer id){
+        String s = tages.replaceAll(",", "|");
+        return questionMapper.listRelatedQuestions(s,id);
     }
 }

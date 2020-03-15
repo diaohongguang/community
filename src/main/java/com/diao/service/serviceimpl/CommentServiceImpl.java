@@ -7,6 +7,7 @@ import com.diao.pojo.Comment;
 import com.diao.pojo.TypeEnum;
 import com.diao.pojo.dto.CommentDto;
 import com.diao.pojo.dto.QuestionDto;
+import com.diao.pojo.dto.RelatedQuestionsDto;
 import com.diao.service.CommentService;
 import com.diao.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +76,5 @@ public class CommentServiceImpl implements CommentService {
                 sorted((c1, c2) -> { return (int) (c2.getGmtCreate() - c1.getGmtCreate()); }).
                 collect(Collectors.toList());
     }
+
 }

@@ -27,6 +27,14 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="label label-info" style="margin-right: 12px"
+                          th:each="tag : ${question.tag.split(',')}">
+                    <span class="glyphicon glyphicon-tags "></span>
+                    <span style="margin-right:10px" th:text="${tag}"></span>
+                    </span>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${session.user!= null}">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
                          th:if="${session.user.accountId == question.creator}">
@@ -36,8 +44,10 @@
                             <span th:text="${'编辑'}"></span>
                         </a>
                     </div>
+                    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
                 </div>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
                 <h4>
                     <span th:text="${question.commentCount}">0</span>
                     <span>个回复</span>
@@ -73,9 +83,9 @@
                                         <h5 class="media-heading">
                                             <a href="#">{{comment.user.name}}</a>
                                         </h5>
-                                        <span class="comment-size" >{{comment.content}}</span>
+                                        <span class="comment-size">{{comment.content}}</span>
                                         <div class="comment-size">
-                                                <span class="pull-right time-location">{{comment.gmtCreate | formatDate}}</span>
+                                            <span class="pull-right time-location">{{comment.gmtCreate | formatDate}}</span>
                                         </div>
                                         <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 0">
                                     </div>
@@ -84,7 +94,9 @@
                                                                                              th:id="${'input-'+comment.id}"
                                                                                              class="form-control"
                                                                                              placeholder="评论一下......">
-                                    <button style="float: right;margin-top: 10px;" type="button" class="btn btn-success" th:data-id="${comment.id}" @click="reply($event)">评论</button>
+                                    <button style="float: right;margin-top: 10px;" type="button" class="btn btn-success"
+                                            th:data-id="${comment.id}" @click="reply($event)">评论
+                                    </button>
                                 </div>
 
                             </div>
@@ -130,23 +142,29 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div>
                 <h4>相关问题</h4>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="related-question">
+                        <li th:each="relate : ${relatedQuestions}">
+                            <a th:href="@{/question/}+${relate.id}" th:text="${relate.title}"></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 </body>
 </html>
 <script>
     var vue = new Vue({
-        el:'#app',
-        data:{
-            t:[{
+        el: '#app',
+        data: {
+            t: [{
                 id: '',
                 parentId: '',
                 type: '',
-                commentator:'',
-                likeCount:'',
+                commentator: '',
+                likeCount: '',
                 gmtCreate: '',
                 gmtModified: '',
                 content: '',
@@ -159,11 +177,12 @@
                     gmtCreate: '',
                     gmtModified: ''
                 }
-            }]
+            }],
+            id: ''
         },
-        methods:{
-            request:function(url,data,method){
-                var that =this;
+        methods: {
+            request: function (url, data, method) {
+                var that = this;
                 $.ajax({
                     type: method,
                     url: url,
@@ -191,25 +210,27 @@
                 });
             },
             getComment: function (event) {
-                var id =event.target.getAttribute("data-id");
-                if ( document.getElementById('comment-' + id).style.display == "none") {
-                    document.getElementById('comment-' + id).style.display = "block";
-                    var that= this;
-                    $.getJSON('/replies/'+id,null,function (response) {
-                        console.log(response.t);
-                        if (response.code == 2000){
-                            that.t = response.t;
-                        }
-                        console.log(that.t);
-                    })
-                } else if ( document.getElementById('comment-' + id).style.display == "block") {
-                    document.getElementById('comment-' + id).style.display = "none";
-                }
-                console.log();
+                var id = event.target.getAttribute("data-id");
+                if (id == this.id || this.id == '') {
+                    if (document.getElementById('comment-' + id).style.display == "none") {
+                        document.getElementById('comment-' + id).style.display = "block";
+                        var that = this;
+                        this.id = id;
+                        $.getJSON('/replies/' + id, null, function (response) {
+                            if (response.code == 2000) {
+                                that.t = response.t;
+                            }
+                            that.id = id;
+                        });
+                    } else if (document.getElementById('comment-' + id).style.display == "block") {
+                        document.getElementById('comment-' + id).style.display = "none";
+                        this.id = '';
+                    }
 
+                }
             },
-            reply :function (event) {
-                var id =event.target.getAttribute("data-id");
+            reply: function (event) {
+                var id = event.target.getAttribute("data-id");
                 var data = {
                     content: $('#input-' + id).val(),
                     commentator: $('#commentor').val(),
@@ -220,12 +241,12 @@
                     alert("~评论不能为空");
                     return;
                 }
-                this.request('/reply',data,'post');
+                this.request('/reply', data, 'post');
 
             }
         },
         filters: {
-            formatDate :function(num) {
+            formatDate: function (num) {
                 var date = new Date(num);
                 var seperator1 = "-";
                 var year = date.getFullYear();
@@ -240,7 +261,7 @@
                 var currentdate = year + seperator1 + month + seperator1 + strDate;
                 return currentdate;
             }
-    }
+        }
 
 
     });

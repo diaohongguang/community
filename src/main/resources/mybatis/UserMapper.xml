@@ -31,4 +31,10 @@
     <update id="updateUserByAccountId">
         update user set token=#{token},avatar_url = #{avatarUrl},name=#{name},gmt_modified=#{gmtModified} where account_id=#{accountId}
     </update>
+
+    <select id="selectUserByAccountId" resultType="User">
+        select name,id
+        from user
+        where account_id=#{accountId}
+    </select>
 </mapper>

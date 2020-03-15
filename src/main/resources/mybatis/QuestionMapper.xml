@@ -108,4 +108,8 @@
         where tag REGEXP #{tags} and id != #{id};
     </select>
 
+    <select id="getMyselfQuestionCount" resultType="int">
+        select count(1) from question where creator =#{creator}
+    </select>
+
 </mapper>

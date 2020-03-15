@@ -69,6 +69,14 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<RelatedQuestionsDto> listRelatedQuestions(String tages,Integer id){
         String s = tages.replaceAll(",", "|");
+        if (s.charAt(s.length()-1) == '|'){
+            s = s.substring(0,s.length()-1);
+        }
         return questionMapper.listRelatedQuestions(s,id);
+    }
+
+    @Override
+    public Integer getMyselfQuestionCount(Integer creator) {
+        return questionMapper.getMyselfQuestionCount(creator);
     }
 }

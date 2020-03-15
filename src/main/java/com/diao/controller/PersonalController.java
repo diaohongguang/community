@@ -1,7 +1,9 @@
 package com.diao.controller;
 
+import com.diao.mapper.NoticeMapper;
 import com.diao.pojo.User;
-import com.diao.pojo.dto.PageDto;
+import com.diao.service.NoticeService;
+import com.diao.service.QuestionService;
 import com.diao.service.serviceimpl.PersonalServiceImpl;
 import com.diao.service.serviceimpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -21,7 +22,12 @@ public class PersonalController {
     PersonalServiceImpl personalService;
     @Autowired
     UserServiceImpl userService;
-
+    @Autowired
+    private NoticeService noticeService;
+    @Autowired
+    private QuestionService questionService;
+    @Autowired
+    private NoticeMapper noticeMapper;
     @GetMapping("/personal/{active}")
     public String goPersonal(HttpServletRequest request, Model model,
                              @PathVariable("active") String active,
@@ -30,6 +36,8 @@ public class PersonalController {
                              @RequestParam(name = "keyword", defaultValue = "null") String keyword) {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
+            model.addAttribute("noticeCount", noticeMapper.getNewNoticeCount(Integer.valueOf(user.getAccountId())));
+            model.addAttribute("questionCount", questionService.getMyselfQuestionCount(Integer.valueOf(user.getAccountId())));
             if ("question".equals(active)) {
                 model.addAttribute("select", "question");
                 model.addAttribute("selectName", "我的问题");
@@ -41,6 +49,7 @@ public class PersonalController {
             } else if ("replies".equals(active)) {
                 model.addAttribute("select", "replies");
                 model.addAttribute("selectName", "最新回复");
+                model.addAttribute("list",noticeService.listNoticeByReceiver(Integer.valueOf(user.getAccountId()),page,size));
                 return "personal";
             }
         }

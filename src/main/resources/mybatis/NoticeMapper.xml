@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diao.mapper.NoticeMapper">
+   <insert id="insertNotice" parameterType="Notice">
+       insert into notice(receiver, notifier, outerId, type, gmt_create,outer_title,notify_name)
+       values (#{receiver}, #{notifier}, #{outerId}, #{type}, #{gmtCreate},#{outerTitle},#{notifyName})
+   </insert>
+
+    <select id="listNoticeByReceiver" resultType="Notice">
+        select id, receiver, notifier, outerId, type, gmt_create, status, outer_title, notify_name
+        from notice
+        where receiver = #{receiver}
+        order by  gmt_create desc
+        <if test="currentPage!=null" >
+            <if test="pageSize!=null" >
+                limit #{currentPage},#{pageSize}
+            </if>
+        </if>
+    </select>
+
+    <select id="getNoticeCount" resultType="_int">
+        select count(1)
+        from notice
+        where receiver=#{receiver}
+    </select>
+    <select id="getNewNoticeCount" resultType="_int">
+        select count(1)
+        from notice
+        where receiver=#{receiver} and status = 0
+    </select>
+
+    <update id="updataStatus">
+        update notice set status = 1 where id=#{id}
+    </update>
+</mapper>

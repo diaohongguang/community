@@ -15,4 +15,6 @@ public interface QuestionService {
     QuestionDto selectQuestion(Integer id);
     void updateQuestionCommentCountById(Integer id);
     List<RelatedQuestionsDto> listRelatedQuestions(String tages,Integer id);
+
+    Integer getMyselfQuestionCount(Integer creator);
 }

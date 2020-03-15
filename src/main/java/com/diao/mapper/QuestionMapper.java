@@ -32,4 +32,6 @@ public interface QuestionMapper {
     void updateQuestionCommentCountById(@Param("id") Integer id);
 
     List<RelatedQuestionsDto> listRelatedQuestions(@Param("tags")String tags,@Param("id")Integer id);
+
+    Integer getMyselfQuestionCount(@Param("creator") Integer creator);
 }

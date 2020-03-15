@@ -7,9 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/community.css}"/>
+    <link rel="stylesheet" th:href="@{/css/editormd.preview.css}"/>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script th:src="@{/js/jquery.js}" type="application/javascript"></script>
     <script th:src="@{/js/bootstrap.js}" type="application/javascript"></script>
+    <script th:src="@{/js/editormd.js}" type="application/javascript"></script>
+    <script th:src="@{/js/lib/marked.min.js}" type="application/javascript"></script>
+    <script th:src="@{/js/lib/prettify.min.js}" type="application/javascript"></script>
 </head>
 <body class="body1">
 <div th:insert="~{header :: head}"></div>
@@ -25,7 +29,14 @@
                         阅读数：<span th:text=" ${question.viewCount}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+                    <textarea style="display:none;" th:text="${question.description}"></textarea>
+                </div>
+                <script type="application/javascript">
+                    $(function () {
+                        editormd.markdownToHTML("question-view",{})
+                    })
+                </script>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="label label-info" style="margin-right: 12px"
@@ -142,7 +153,7 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div>
                 <h4>相关问题</h4>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0">
                     <ul class="related-question">
                         <li th:each="relate : ${relatedQuestions}">
                             <a th:href="@{/question/}+${relate.id}" th:text="${relate.title}"></a>

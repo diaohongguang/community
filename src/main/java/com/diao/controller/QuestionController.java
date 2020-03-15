@@ -1,5 +1,6 @@
 package com.diao.controller;
 
+import com.diao.mapper.NoticeMapper;
 import com.diao.pojo.TypeEnum;
 import com.diao.pojo.User;
 import com.diao.pojo.dto.QuestionDto;
@@ -19,11 +20,17 @@ public class QuestionController {
     private QuestionService questionService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private NoticeMapper noticeMapper;
     @GetMapping("/question/{id}")
     public String toQuestion(@PathVariable("id")Integer id,
                              Model model,
                              HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
         QuestionDto questionDto = questionService.selectQuestion(id);
+        if (user != null){
+            model.addAttribute("noticeCount", noticeMapper.getNewNoticeCount(Integer.valueOf(user.getAccountId())));
+        }
 
         model.addAttribute("question",questionDto);
         model.addAttribute("comments",commentService.listComments(questionDto.getId(), TypeEnum.COMMENT.getType()));

@@ -22,8 +22,6 @@ public class CommentController {
     @ResponseBody
     @PostMapping("/comment")
     public ResultDto getComment(@RequestBody Map<String, String> map, HttpServletRequest request) {
-        System.out.println("执行到了这里输出map=>" + map);
-        System.out.println("执行到了这里输出map里面的content=>" + map.get("content"));
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return new ResultDto(MyException.NO_LOGIN);
@@ -31,7 +29,7 @@ public class CommentController {
         if (map.get("content") == null || "".equals(map.get("content").trim())) {
             return new ResultDto(MyException.NOT_COTENT);
         }
-        commentService.createComment(map);
+        commentService.createComment(map,user);
         return new ResultDto(MyException.OK_MESSAGE);
     }
     @ResponseBody
@@ -49,7 +47,7 @@ public class CommentController {
         if (user == null) {
             return new ResultDto(MyException.NO_LOGIN);
         }
-        commentService.createComment(map);
+        commentService.createComment(map,user);
         return  new ResultDto(MyException.OK_MESSAGE);
     }
 

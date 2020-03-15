@@ -1,6 +1,7 @@
 package com.diao;
 
 import com.diao.mapper.CommentMapper;
+import com.diao.mapper.NoticeMapper;
 import com.diao.mapper.QuestionMapper;
 import com.diao.mapper.UserMapper;
 import com.diao.pojo.dto.CommentDto;
@@ -19,10 +20,10 @@ class CommunityApplicationTests {
     @Autowired
     UserMapper userMapper;
     @Autowired
-    QuestionMapper questionMapper;
+    NoticeMapper noticeMapper;
     @Test
     void contextLoads() {
-        System.out.println(questionMapper.getQuestionCount());
+        System.out.println(noticeMapper.listNoticeByReceiver(61926405,0,5));
     }
 
 }

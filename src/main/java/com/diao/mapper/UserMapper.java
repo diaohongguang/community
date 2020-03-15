@@ -18,4 +18,5 @@ public interface UserMapper {
 
     int updateUserByAccountId(User user);
 
+    User selectUserByAccountId(@Param("accountId") Integer accountId);
 }

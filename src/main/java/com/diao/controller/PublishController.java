@@ -1,9 +1,11 @@
 package com.diao.controller;
 
+import com.diao.mapper.NoticeMapper;
 import com.diao.pojo.Question;
 import com.diao.pojo.User;
 import com.diao.pojo.dto.QuestionDto;
 import com.diao.service.serviceimpl.QuestionServiceImpl;
+import com.diao.utils.Tags;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
     @Autowired
     QuestionServiceImpl questionService;
-
+    @Autowired
+    private NoticeMapper noticeMapper;
     @GetMapping("/publish")
-    public String goPublish(HttpServletRequest request) {
+    public String goPublish(HttpServletRequest request,Model model) {
+        User user = (User) request.getSession().getAttribute("user");
+        request.setAttribute("tagedata", Tags.getListTag());
+        model.addAttribute("noticeCount", noticeMapper.getNewNoticeCount(Integer.valueOf(user.getAccountId())));
         if (request.getSession().getAttribute("user") != null) {
             return "publish";
         } else {
@@ -45,11 +51,15 @@ public class PublishController {
             model.addAttribute("error", "~标签不能为空");
             return "publish";
         }
-
+        if (!Tags.isValid(question.getTag())){
+            model.addAttribute("error", "~标签格式非法");
+            return "publish";
+        }
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return "redirect:/";
         }
+        model.addAttribute("noticeCount", noticeMapper.getNewNoticeCount(Integer.valueOf(user.getAccountId())));
         question.setCreator(user.getAccountId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());

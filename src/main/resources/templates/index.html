@@ -47,26 +47,26 @@
                 <nav th:if="${list.count != 0}" aria-label="Page navigation" style="float: right">
                     <ul class="pagination">
                         <li th:if="${list.hasHead}">
-                            <a th:href="@{/index(page=${1})}" aria-label="Next">
+                            <a th:href="@{/index(page=${1},keyword=${keyword})}" aria-label="Next">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
                         <li th:if="${list.hasPre}">
-                            <a th:href="@{/index(page=${list.currentPage - 1})}" aria-label="Previous">
+                            <a th:href="@{/index(page=${list.currentPage - 1},keyword=${keyword})}" aria-label="Previous">
                                 <span th:aria-hidden="${list.hasPre}">&laquo;</span>
                             </a>
                         </li>
                         <li th:class="${list.currentPage ==  pagelist ?'active' : ''}"
                             th:each=" pagelist : ${list.page}">
-                            <a th:text="${pagelist}" th:href="@{/index(page=${pagelist})}"></a>
+                            <a th:text="${pagelist}" th:href="@{/index(page=${pagelist},keyword=${keyword})}"></a>
                         </li>
                         <li th:if="${list.hasNext}">
-                            <a th:href="@{/index(page=${list.currentPage + 1})}" aria-label="Next">
+                            <a th:href="@{/index(page=${list.currentPage + 1},keyword=${keyword})}" aria-label="Next">
                                 <span th:aria-hidden="${list.hasNext}">&raquo;</span>
                             </a>
                         </li>
                         <li th:if="${list.hasTail}">
-                            <a th:href="@{/index(page=${list.totlePage})}" aria-label="Next">
+                            <a th:href="@{/index(page=${list.totlePage},keyword=${keyword})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>

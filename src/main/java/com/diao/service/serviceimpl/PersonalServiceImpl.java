@@ -15,7 +15,7 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public PageDto listQuestionsByUserAccountId(Integer currentPage, Integer pageSize, String keyword, String accountId) {
         PageDto pageDto = new PageDto();
-        int count = questionMapper.getQuestionCountByUserAccountId(accountId);
+        int count = questionMapper.getQuestionCountByUserAccountId(accountId,keyword);
         int totlePage;
         if (count == 0) {
             return null;

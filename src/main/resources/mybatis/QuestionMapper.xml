@@ -83,10 +83,20 @@
 
     <select id="getQuestionCountByUserAccountId" resultType="_int">
         select count(1) from question where creator = #{accountId}
+
+            <if test="keyword != null">
+                and title like concat('%',#{keyword},'%')
+            </if>
+
     </select>
 
     <select id="getQuestionCount" resultType="_int">
         select count(1) from question
+        <where>
+        <if test="keyword!=null">
+            and title like concat('%',#{keyword},'%')
+        </if>
+        </where>
     </select>
 
     <update id="updateQuestion" parameterType="Question">

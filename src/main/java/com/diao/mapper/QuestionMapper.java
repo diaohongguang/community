@@ -19,9 +19,9 @@ public interface QuestionMapper {
                                     @Param("keyword") String keyword,
                                     @Param("accountId") String accountId);
 
-    int getQuestionCount();
+    int getQuestionCount(@Param("keyword")String keyword);
 
-    int getQuestionCountByUserAccountId(@Param("accountId") String accountId);
+    int getQuestionCountByUserAccountId(@Param("accountId") String accountId,@Param("keyword")String keyword);
 
     QuestionDto selectQuestion(@Param("id") Integer id);
 

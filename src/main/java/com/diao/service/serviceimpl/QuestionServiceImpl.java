@@ -30,7 +30,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public PageDto listQuestions(Integer currentPage, Integer pageSize, String keyword) {
         PageDto pageDto = new PageDto();
-        int count = questionMapper.getQuestionCount();
+        int count = questionMapper.getQuestionCount(keyword);
         if (count == 0) {
             return null;
         }

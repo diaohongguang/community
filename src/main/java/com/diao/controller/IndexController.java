@@ -28,8 +28,10 @@ public class IndexController {
                         @RequestParam(name = "keyword", defaultValue = "null") String keyword,
                         HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        if ("null".equals(keyword)) {
+        if (keyword == null||"null".equals(keyword)) {
             keyword = null;
+        }else {
+            model.addAttribute("keyword",keyword);
         }
         model.addAttribute("list", questionService.listQuestions(page, size, keyword));
         if (user != null) {
@@ -38,4 +40,5 @@ public class IndexController {
 
         return "index";
     }
+
 }
